@@ -6,7 +6,7 @@ on:
 jobs:
   build-analyze-scan:
     name: Build
-    runs-on: [Ahd0611]
+    runs-on: [Eks]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
