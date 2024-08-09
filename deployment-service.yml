@@ -2,20 +2,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tic-tac-toe
+  name: tic-game
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tic-tac-toe
+      app: tic-game
   template:
     metadata:
       labels:
-        app: tic-tac-toe
+        app: tic-game
     spec:
       containers:
-      - name: tic-tac-toe
-        image: sevenajay/tic-tac-toe:latest
+      - name: tic-game
+        image: ahd0611/tic-game:latest
         ports:
         - containerPort: 3000   # Use port 3000
 
@@ -23,10 +23,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: tic-tac-toe-service
+  name: tic-game-service
 spec:
   selector:
-    app: tic-tac-toe
+    app: tic-game
   ports:
   - protocol: TCP
     port: 80                 # Expose port 80
