@@ -6,7 +6,7 @@ on:
 jobs:
   build-analyze-scan:
     name: Build
-    runs-on: [Eks]
+    runs-on: [self-hosted]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -33,7 +33,17 @@ jobs:
           DOCKER_CLI_ACI: 1
       - name: Trivy Image Scan
         run: trivy image ahd0611/tic-game > trivyimage.txt
-          
-          
+  deploy:
+   needs: build-analyze-scan
+   runs-on: [self-hosted]    
+   steps:
+      - name: docker pull image
+        run: docker pull ahd0611/tic-game:latest
+
+      - name: Image Scan
+        run: trivy image ahd0611/tic-game:latest > trivyimagedeploy.txt
+
+      - name: Deploy to container
+        run: docker run -d --name game -p 3000:3000 ahd0611/tic-game:latest     
           
         
